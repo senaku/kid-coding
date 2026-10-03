@@ -1,11 +1,8 @@
 import CommandChip from "./CommandChip";
 import { useState } from "react";
+import type { Command } from "./types";
 
-
-
-type Command = "forward" | "turnLeft" | "turnRight";
-
-const program: Command[] = ["forward", "forward", "turnleft", "forward"];
+const program: Command[] = ["forward", "forward", "turnLeft", "forward"];
 
 function App(){
   const [ current,setCurrent ] = useState(0);
