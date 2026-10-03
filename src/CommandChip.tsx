@@ -1,12 +1,13 @@
 type Props = {
     label: string;
     cmd : Command;
+    active : boolean;
 };
 
 type Command = "forward" | "turnleft" | "turnRight";
 
-function CommandChip({ label, cmd }:Props) {
-    return <span>{label} / {cmd} </span>
+function CommandChip({ label, cmd, active }:Props) {
+    return <span>{active ? "▶ " : ""}{label}</span>
     
 }
 
