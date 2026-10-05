@@ -4,6 +4,7 @@ type Props = {
     label: string;
     cmd : Command;
     active : boolean;
+    onRemove: () => void;
 };
 
 const CMD_CLASS: Record<Command, string> ={
@@ -13,9 +14,12 @@ const CMD_CLASS: Record<Command, string> ={
 };
 
 
-function CommandChip({ label, cmd, active }:Props) {
+function CommandChip({ label, cmd, active, onRemove }:Props) {
     return (
-        <span className={`chip ${CMD_CLASS[cmd]} ${active ? "chip-active" : ""}`}>
+        <span 
+            className={`chip ${CMD_CLASS[cmd]} ${active ? "chip-active" : ""}`}
+            onClick={onRemove}
+        >
             {label}
         </span>
     );
