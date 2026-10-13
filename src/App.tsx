@@ -2,7 +2,10 @@ import CommandChip from "./CommandChip";
 import { useState } from "react";
 import type { Command } from "./types";
 
-
+const makeStep = (cmd: Command): Step => ({
+  id: crypto.randomUUID(),
+  cmd,
+});
 
 function App(){
   const [ current,setCurrent ] = useState(0);
