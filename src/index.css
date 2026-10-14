@@ -4,6 +4,8 @@ body {
 }
 
 .chip {
+  min-width: 72px;
+  text-align: center;
   display: inline-block;
   padding: 8px 14px;
   margin: 4px;
@@ -17,7 +19,7 @@ body {
 .chip.chip-active {
     transform: scale(1.12);
   border-bottom-color: #2563eb;
-  font-weight: bold;
+  font-weight: bold; 
 
 }
 

@@ -1,6 +1,7 @@
 import CommandChip from "./CommandChip";
 import { useState } from "react";
-import type { Command } from "./types";
+import type { Command,Step } from "./types";
+
 
 const makeStep = (cmd: Command): Step => ({
   id: crypto.randomUUID(),
@@ -9,29 +10,40 @@ const makeStep = (cmd: Command): Step => ({
 
 function App(){
   const [ current,setCurrent ] = useState(0);
-  const [ program,setProgram ] = useState<Command[]>([
-    "forward", "forward", "turnLeft", "forward"
+  const [ program,setProgram ] = useState<Step[]>([
+    makeStep("forward"),
+    makeStep("forward"),
+    makeStep("turnLeft"),
+    makeStep("forward"),
   ]);
+
+  const safeCurrent = Math.min(current, program.length - 1);
+
   const addCommand = (cmd: Command) => {
-      setProgram([...program, cmd]);
+      setProgram([...program, makeStep(cmd)]);
   }
-  const removeAt = (index: number) => {
-    setProgram(program.filter((_,i)=> i !== index ));
+ 
+  const removeById = (id: string) => {
+    setProgram(program.filter((step)=> step.id !== id ));
   }
 
   return (
     <div>
         <h1>kid-coding</h1>
-        <p>현재 : {current}번째</p>
+        {program.length === 0
+          ? <p>명령을 추가하세요</p>
+          : <p>현재 : {safeCurrent+1}번째</p>
+        }
+        
         <button 
-          onClick={()=> setCurrent(current+1)}
-          disabled={current >= program.length -1}
+          onClick={()=> setCurrent(safeCurrent+1)}
+          disabled={safeCurrent >= program.length -1}
         >
           다음
         </button>
         <button onClick={()=> setCurrent(0)}>처음으로</button>
-        {program.map((cmd,i) => (
-          <CommandChip key={i} label={cmd} cmd={cmd} active={i === current} onRemove={()=> removeAt(i)}/>
+        {program.map((step,i) => (
+          <CommandChip key={step.id} label={step.cmd} cmd={step.cmd} active={i === safeCurrent} onRemove={()=> removeById(step.id)}/>
         ))}
         <div>
           button
